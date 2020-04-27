@@ -1,0 +1,105 @@
+<table *ngIf="userDetails" class="table-fill">
+  <thead>
+      <tr>
+          <th colspan="2" class="text-center">User Profile</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>First Name</td>
+          <td>{{userDetails.fullName.split(' ')[0]}}</td>
+      </tr>
+      <tr>
+          <td>Last Name</td>
+          <td>{{userDetails.fullName.split(' ')[1]}}</td>
+      </tr>
+      <tr>
+          <td>Email</td>
+          <td>{{userDetails.email}}</td>
+      </tr>
+      <tr>
+          <td colspan="2" class="text-center">
+            <button class="favorite styledd"  (click)="onLogout()" >Logout</button>
+
+          </td>
+      </tr>
+
+
+  </tbody>
+</table>
+
+
+
+
+<div class="card-content white-text">
+  <div class="row">
+    <div class="col s5">
+      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+        <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="userService.selectedchant._id">
+
+
+        <div class="row">
+          <div class="input-field col s12">
+
+            <input class="" type="date" name="dateCreation" #name="ngModel" [(ngModel)]="userService.selectedchant.dateCreation" >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+
+            <input type="text1" name="name" #name="ngModel" [(ngModel)]="userService.selectedchant.name" placeholder="Enter name" required>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="input-field col s12">
+
+            <textarea class="textarea" name="contenu"  #name="ngModel" [(ngModel)]="userService.selectedchant.contenu"  rows="5" cols="158" placeholder="Contenu du poéme, chant . . . "></textarea>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+
+
+            <button class="favorite styled"  (click)="resetForm(userForm)" >Reset</button>
+
+            <button class="favorite styled" type="submit" [disabled]="!userForm.valid">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col s12">
+
+    <div class="header">Chants</div>
+        <table class="table-fill">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Contenu</th>
+                <th>date Creation</th>
+                <th>----</th>
+              </tr>
+            </thead>
+            <tr *ngFor="let ch of userService.chant">
+              <td>{{ch.name}}</td>
+              <td>{{ch.contenu}}</td>
+              <td>{{ch.dateCreation}}</td>
+              <td>
+                  <a class="action-btn" (click)="onEdit(ch)">
+                    <i class="material-icons">edit</i>
+                  </a><hr>
+                  <a class="action-btn" (click)="onDelete(ch._id,userForm)">
+                    <i class="material-icons">delete</i>
+                  </a>
+                </td>
+            </tr>
+          </table>
+    </div>
+  </div>
+</div>
